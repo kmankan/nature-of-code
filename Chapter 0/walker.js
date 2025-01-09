@@ -1,14 +1,25 @@
-let walker;
+let walkers = [];
 
 function setup() {
-  createCanvas(640,1040);
-  walker = new Walker();
-  background(135, 206, 23);
+  createCanvas(640,800);
+  let firstWalker = new Walker();
+  firstWalker.color = color(0);
+  walkers.push(firstWalker);
+  background(255);
 }
 
 function draw() {
-  walker.step();
-  walker.show();
+  // 1% chance of a new walker spawning each frame
+  if (random(1) < 0.01) {
+    walkers.push(new Walker());
+  }
+  
+  // Update all walkers
+  for (let walker of walkers) {
+    walker.step();
+    walker.show();
+  }
+  
 }
 
 function mouseClicked() {
@@ -18,13 +29,15 @@ function mouseClicked() {
 
 class Walker {
   constructor() {
-    this.x = width/2;
-    this.y  = height/2;
+    this.x = floor(random(width));
+    this.y  = floor(random(height));
+    // Add a color property with random RGB values
+    this.color = color(random(255), random(255), random(255));
   }
 
   // Objects have methods.
-  show() {
-    stroke(0);
+  show(useColor = this.color) {
+    stroke(useColor);
     strokeWeight(1)
     point(this.x, this.y);
   }
