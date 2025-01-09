@@ -52,24 +52,26 @@ class Walker {
     // let ystep = floor(random(3)) - 1;
 
     // any-directional movement within a circle of 1 unit
-    
-    let xstep = random(-1,1.1);
+    // Gaussian random walk
+    let xstep = randomGaussian(0,1);
     //let xstepLeanRight = xstep < 0 ? xstep + random(0,0.2) : xstep;
-    let ystep = random(-1,1.1);
+    let ystep = randomGaussian(0,1);
     //let ystepLeanRight = ystep > 0 ? ystep + random(0,0.2) : ystep;
+    this.x += xstep
+    this.y += ystep
 
-    const r = random(1);
-
-    if (r < 0.5) {
-      const dx = mouseX > this.x ? random(0,1) : random(-1,0)
-      const dy = mouseY > this.y ? random(0,1) : random(-1,0)
-      this.x += dx;
-      this.y += dy;
-    } else {
-      const xstep = random(-1,1);
-      const ystep = random(-1,1);
-      this.x += xstep;
-      this.y += ystep;
-    }
+    // random walk that moves in the direction of the mouse
+    // const r = random(1);
+    // if (r < 0.5) {
+    //   const dx = mouseX > this.x ? random(0,1) : random(-1,0)
+    //   const dy = mouseY > this.y ? random(0,1) : random(-1,0)
+    //   this.x += dx;
+    //   this.y += dy;
+    // } else {
+    //   const xstep = random(-1,1);
+    //   const ystep = random(-1,1);
+    //   this.x += xstep;
+    //   this.y += ystep;
+    // }
   }
 }
