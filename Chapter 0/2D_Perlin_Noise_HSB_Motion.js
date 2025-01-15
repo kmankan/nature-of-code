@@ -3,34 +3,33 @@ let zoff = 0;
 function setup() {
   createCanvas(600, 600);
   //createCanvas(1200, 800);
-  pixelDensity(1)
+  // Set pixel density to 1 for high quality rendering
+  pixelDensity(1);
+  // Set color mode to HSB
+  colorMode(HSB);
 }
   // Split canvas into 3 sections to compare
   // drawNoiseSection(8, 0.6);
   
   function draw() {
-    noiseDetail(8, 0.8);
+    noiseDetail(7, 0.5);
     loadPixels();
-    let xoff = 0.0;
+    let xoff = 0.1;
     
     for (let x = 0; x < width; x++) {
-      let yoff = 0.0;
+      let yoff = 0.1;
       for (let y = 0; y < height; y++) {
-        let index = (x + y * width) * 4;
-        //const bright = map(noise(xoff, yoff, zoff), 0, 1, 0, 255);
-        const r = map(noise(xoff, yoff, zoff), 0, 1, 0, 255);
-        const g = map(noise(xoff, yoff, zoff), 0, 1, 0, 255);
-        const b = map(noise(xoff, yoff, zoff), 0, 1, 0, 255);
-        //console.log(`bright ${index}`, floor(bright));
-        pixels[index] = r;
-        pixels[index + 1] = g;
-        pixels[index + 2] = b;
-        pixels[index + 3] = 255;
-        yoff += 0.08;
+        // Calculating brightness value for noise
+        const bright = map(noise(xoff, yoff,zoff), 0, 1, 0, 255);
+        //Calculating hue value for noise
+        const hu = map(noise(xoff, yoff, zoff), 0,1,0,360);
+        const col = color(hu, 100, bright);
+        set(x, y, col);
+        yoff += 0.01;
       }
       xoff += 0.01;
     }
-    zoff += 0.02
+    zoff += 0.04
     updatePixels();
   }
 
